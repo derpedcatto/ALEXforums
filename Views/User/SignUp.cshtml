@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Sign Up";
+}
+
+<div class="element-registration body-padding">
+    <h1>Реєстрація</h1>
+    <section class="section-registration-error">
+        <ul>
+            <li>- Username field is empty.</li>
+            <li>- Username must be 3-12 characters long.</li>
+            <li>- Username must not contain invalid characters.</li>
+            <br>
+            <li>- Password field is empty.</li>
+            <li>- Password must be 6-12 characters long.</li>
+            <li>- Password must not contain invalid characters.</li>
+            <li>- Repeated password is invalid.</li>
+            <br>
+            <li>- Picture must be in .jpg or .png format.</li>
+        </ul>
+    </section>
+    <section class="section-input">
+        <label for="username"><i class="fa-solid fa-user"></i> Ім'я користувача (3-12)</label>
+        <input type="text" id="username" name="Username">
+        <label for="password"><i class="fa-solid fa-lock"></i> Пароль (6-12)</label>
+        <input type="password" id="password" name="Password">
+        <label for="confirmPassword"><i class="fa-solid fa-lock"></i> Підтвердити пароль</label>
+        <input type="password" id="confirmPassword" name="ConfirmPassword">
+        <label for="avatar"><i class="fa-solid fa-image"></i> Аватар (.png, .jpeg) (необов'язково)</label>
+        <input type="file" class="custom-file-upload" id="avatar" name="Avatar" accept="image/png, image/jpeg">
+        <input type="submit" value="Зареєструватись">
+    </section>
+</div>
