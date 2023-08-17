@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ALEXforums.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230813234613_ALEXforums_InitialSchema")]
+    [Migration("20230816164419_ALEXforums_InitialSchema")]
     partial class ALEXforums_InitialSchema
     {
         /// <inheritdoc />
@@ -133,11 +133,13 @@ namespace ALEXforums.Migrations
                     b.HasOne("ALEXforums.Data.Entity.ForumCategory", "Category")
                         .WithMany("ForumPosts")
                         .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ALEXforums.Data.Entity.User", "User")
                         .WithMany("ForumPosts")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -150,11 +152,13 @@ namespace ALEXforums.Migrations
                     b.HasOne("ALEXforums.Data.Entity.ForumPost", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ALEXforums.Data.Entity.User", "User")
                         .WithMany("ForumPostComments")
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿﻿@using System.Security.Claims;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -32,10 +33,20 @@
     <header>
         <a class="header-logo" asp-area="" asp-controller="Home" asp-action="Main">ALEXforums</a>
         <div class="header-auth">
-            <div class="header-btn-profile"><img src="/test_pics/avatar_derpe.png"></div>
-            <div class="header-btn-logout"><i class="fa-solid fa-user-minus"></i></div>
-            <a class="header-btn-login" asp-area="" asp-controller="User" asp-action="SignIn"><i class="fa-solid fa-user"></i></a>
-            <a class="header-btn-register" asp-area="" asp-controller="User" asp-action="SignUp"><i class="fa-solid fa-user-plus"></i></a>
+            @if (Context.User.Identity?.IsAuthenticated == true)
+            {
+                string? avatar = Context.User.Claims
+                                             .FirstOrDefault(c => c.Type == ClaimTypes.UserData)
+                                             ?.Value;
+
+                <div class="header-btn-profile"><img src="/uploads/@avatar"></div>
+                <a class="header-btn-logout" asp-area="" asp-controller="User" asp-action="SignOut"><i class="fa-solid fa-user-minus"></i></a>
+            }
+            else
+            {
+                <a class="header-btn-login" asp-area="" asp-controller="User" asp-action="SignIn"><i class="fa-solid fa-user"></i></a>
+                <a class="header-btn-register" asp-area="" asp-controller="User" asp-action="SignUp"><i class="fa-solid fa-user-plus"></i></a>
+            }
         </div>
     </header>
 

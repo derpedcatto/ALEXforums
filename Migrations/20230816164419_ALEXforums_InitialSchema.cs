@@ -59,18 +59,22 @@ namespace ALEXforums.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumPosts", x => x.Id);
-                    // table.ForeignKey(
-                    //     name: "FK_ForumPosts_ForumCategories_CategoryId",
-                    //     column: x => x.CategoryId,
-                    //     principalSchema: "ALEXforums",
-                    //     principalTable: "ForumCategories",
-                    //     principalColumn: "Id");
-                    // table.ForeignKey(
-                    //     name: "FK_ForumPosts_Users_UserId",
-                    //     column: x => x.UserId,
-                    //     principalSchema: "ALEXforums",
-                    //     principalTable: "Users",
-                    //     principalColumn: "Id");
+                    /*
+                    table.ForeignKey(
+                        name: "FK_ForumPosts_ForumCategories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalSchema: "ALEXforums",
+                        principalTable: "ForumCategories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForumPosts_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "ALEXforums",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    */
                 });
 
             migrationBuilder.CreateTable(
@@ -87,18 +91,22 @@ namespace ALEXforums.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ForumPostComments", x => x.Id);
-                    // table.ForeignKey(
-                    //     name: "FK_ForumPostComments_ForumPosts_PostId",
-                    //     column: x => x.PostId,
-                    //     principalSchema: "ALEXforums",
-                    //     principalTable: "ForumPosts",
-                    //     principalColumn: "Id");
-                    // table.ForeignKey(
-                    //     name: "FK_ForumPostComments_Users_UserId",
-                    //     column: x => x.UserId,
-                    //     principalSchema: "ALEXforums",
-                    //     principalTable: "Users",
-                    //     principalColumn: "Id");
+                    /*
+                    table.ForeignKey(
+                        name: "FK_ForumPostComments_ForumPosts_PostId",
+                        column: x => x.PostId,
+                        principalSchema: "ALEXforums",
+                        principalTable: "ForumPosts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ForumPostComments_Users_UserId",
+                        column: x => x.UserId,
+                        principalSchema: "ALEXforums",
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    */
                 });
 
             migrationBuilder.CreateIndex(

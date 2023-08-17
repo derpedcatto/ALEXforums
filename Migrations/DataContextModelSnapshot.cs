@@ -130,11 +130,13 @@ namespace ALEXforums.Migrations
                     b.HasOne("ALEXforums.Data.Entity.ForumCategory", "Category")
                         .WithMany("ForumPosts")
                         .HasForeignKey("CategoryId")
+                        // .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ALEXforums.Data.Entity.User", "User")
                         .WithMany("ForumPosts")
                         .HasForeignKey("UserId")
+                        // .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -147,11 +149,13 @@ namespace ALEXforums.Migrations
                     b.HasOne("ALEXforums.Data.Entity.ForumPost", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
+                        // .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ALEXforums.Data.Entity.User", "User")
                         .WithMany("ForumPostComments")
                         .HasForeignKey("UserId")
+                        // .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Post");

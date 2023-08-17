@@ -14,7 +14,6 @@ namespace ALEXforums.Middleware
 
         public async Task InvokeAsync(HttpContext context, DataContext dataContext)
         {
-            /*
             if (context.Session.Keys.Contains("AuthUserId"))
             {
                 var user = dataContext.Users.Find(Guid.Parse(
@@ -23,9 +22,9 @@ namespace ALEXforums.Middleware
                 {
                     Claim[] claims = new Claim[]
                     {
-                        new Claim(ClaimTypes.NameIdentifier, user.Login),
+                        new Claim(ClaimTypes.NameIdentifier, user.Username),
                         new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                        new Claim(ClaimTypes.UserData, user.Avatar ?? "")
+                        new Claim(ClaimTypes.UserData, user.Avatar)
                     };
                     context.User =
                         new ClaimsPrincipal(
@@ -33,7 +32,6 @@ namespace ALEXforums.Middleware
                                 claims, nameof(SessionAuthMiddleware)));
                 }
             }
-            */
 
             await _next(context);
         }

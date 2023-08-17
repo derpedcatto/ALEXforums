@@ -1,19 +1,39 @@
-﻿@{
+﻿@model ALEXforums.Models.User.UserSignInModel
+@{
     ViewData["Title"] = "Sign In";
+    bool saveValues = false;
 }
 
 <div class="element-login body-padding">
     <h1>Реєстрація</h1>
-    <section class="section-login-error">
-        <ul>
-            <li>- Username or password is incorrect.</li>
-        </ul>
-    </section>
-    <section class="section-input">
-        <label for="username"><i class="fa-solid fa-user"></i> Ім'я користувача</label>
-        <input type="text" id="username" name="Username">
-        <label for="password"><i class="fa-solid fa-lock"></i> Пароль</label>
-        <input type="password" id="password" name="Password">
+    @if (ViewData["formData"] != null)
+    {
+        if (ViewData["formData"]!.ToString() != String.Empty)
+        {
+            saveValues = true;
+            string[] errorMsgLine = ViewData["formData"]!.ToString()!.Split(';');
+            <section class="section-login-error">
+                <ul>
+                    @foreach (string line in errorMsgLine)
+                    {
+                        @if (line != String.Empty)
+                        {
+                            <li>- @line</li>
+                        }
+                    }
+                </ul>
+            </section>
+        }
+        else
+        {
+            <script>window.location.href = '@Url.Action("Main", "Home")';</script>
+        }
+    }
+    <form asp-action="SignIn" enctype="multipart/form-data" method="post" class="section-input">
+        <label for="user-username"><i class="fa-solid fa-user"></i> Ім'я користувача</label>
+        <input type="text" id="user-username" name="user-username" value="@(saveValues ? Model.Username : String.Empty)">
+        <label for="user-password"><i class="fa-solid fa-lock"></i> Пароль</label>
+        <input type="password" id="user-password" name="user-password">
         <input type="submit" value="Увійти">
-    </section>
+    </form>
 </div>
