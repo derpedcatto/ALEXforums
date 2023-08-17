@@ -63,6 +63,6 @@ app.UseSessionAuth();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Main}/{id?}");
+    pattern: "{controller=Home}/{action=ForumMain}/{id?}");
 
 app.Run();

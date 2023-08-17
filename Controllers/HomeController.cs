@@ -1,7 +1,12 @@
 ﻿using ALEXforums.Data;
+using ALEXforums.Data.Entity;
 using ALEXforums.Models;
+using ALEXforums.Models.Forum;
+using ALEXforums.Models.Home;
 using ALEXforums.Services.Hash;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 
 namespace ALEXforums.Controllers
@@ -19,15 +24,28 @@ namespace ALEXforums.Controllers
             _dataContext = dataContext;
         }
 
-        public IActionResult Main()
+
+        [HttpGet]
+        public IActionResult ForumMain(ForumMainViewModel? model)
         {
-            return View();
+            if (model == null)
+            {
+                model = new();
+                model.PostCategories = _dataContext.ForumCategories.Select(
+                                            category => new SelectListItem
+                                            {
+                                                Value = category.Name,
+                                                Text = category.Name
+                                            }).ToList();
+            }
+            return View(model);
         }
 
         public IActionResult ForumPost()
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

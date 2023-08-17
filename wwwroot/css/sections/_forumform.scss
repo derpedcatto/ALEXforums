@@ -1,0 +1,28 @@
+@use "../global/vars/colors";
+@use "../global/vars/breakpoints";
+@use "../global/vars/padding";
+@use "../global/vars/shadows";
+@use "../global/vars/borders";
+
+@use "../global/elements/buttons";
+@use "../global/elements/cards";
+@use "../global/elements/form";
+
+.forum-newpost-form {
+    @include cards.card-normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 5rem;
+
+    input[type=submit] {
+        margin-top: 3rem;
+    }
+}
+
+.forum-newpost-heading {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 1rem;
+}

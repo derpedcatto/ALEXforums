@@ -29,10 +29,6 @@
     }
 }
 
-.forum-post {
-  margin-bottom: 2rem;
-}
-
 .forum-post-comment {
   @include cards.card-normal;
   display: flex;

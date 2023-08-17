@@ -1,4 +1,5 @@
-/*  Desktop, Tablet, Mobile */ /*  Desktop, Tablet, Mobile */
+/*  Desktop, Tablet, Mobile */
+/*  Desktop, Tablet, Mobile */
 .btn-is-active {
   background-color: #3c3c3f !important;
   font-weight: 600;
@@ -239,7 +240,7 @@ header {
 .forum-feed {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 1.5rem;
 }
 
 .forum-post {
@@ -457,7 +458,57 @@ header {
 }
 
 label {
+  font-size: 1.3rem;
+}
+
+textarea {
+  color: #e2e2e2;
+  background-color: #1e1e1f;
+  border: 2px solid #3d3d40;
+  border-radius: 15px;
+  transition: 0.15s ease-in-out;
   font-size: 1.2rem;
+  resize: none;
+  height: 15rem;
+}
+@media screen and (min-width: 1024px) {
+  textarea {
+    padding: 10px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  textarea {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 481px) {
+  textarea {
+    padding: 5px;
+  }
+}
+
+select {
+  color: #e2e2e2;
+  background-color: #1e1e1f;
+  border: 2px solid #3d3d40;
+  border-radius: 15px;
+  transition: 0.15s ease-in-out;
+  font-size: 1.2rem;
+}
+@media screen and (min-width: 1024px) {
+  select {
+    padding: 10px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  select {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 481px) {
+  select {
+    padding: 5px;
+  }
 }
 
 input {
@@ -516,7 +567,31 @@ input[type=file]::file-selector-button {
 }
 
 input[type=submit] {
+  background-color: #1e1e1f;
+  border: 2px solid #3d3d40;
+  border-radius: 15px;
+  text-align: center;
   cursor: pointer;
+  transition: 0.15s ease-in-out;
+  cursor: pointer;
+}
+@media screen and (min-width: 1024px) {
+  input[type=submit] {
+    padding: 10px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  input[type=submit] {
+    padding: 10px;
+  }
+}
+@media screen and (max-width: 481px) {
+  input[type=submit] {
+    padding: 6px;
+  }
+}
+input[type=submit]:hover {
+  background-color: #3c3c3f;
 }
 input[type=submit]:hover {
   background-color: #3c3c3f;
@@ -651,10 +726,6 @@ input[type=submit]:hover {
   .element-forumpost {
     width: 95%;
   }
-}
-
-.forum-post {
-  margin-bottom: 2rem;
 }
 
 .forum-post-comment {
@@ -885,6 +956,43 @@ input[type=submit]:hover {
 }
 .section-input input[type=submit] {
   margin-top: 3rem;
+}
+
+.forum-newpost-form {
+  background-color: #1e1e1f;
+  border: 2px solid #3d3d40;
+  border-radius: 20px;
+  background-color: #212023;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 5rem;
+}
+@media screen and (min-width: 1024px) {
+  .forum-newpost-form {
+    padding: 30px;
+  }
+}
+@media screen and (min-width: 481px) and (max-width: 1024px) {
+  .forum-newpost-form {
+    padding: 25px;
+  }
+}
+@media screen and (max-width: 481px) {
+  .forum-newpost-form {
+    padding: 20px;
+  }
+}
+.forum-newpost-form input[type=submit] {
+  margin-top: 3rem;
+}
+
+.forum-newpost-heading {
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
 }
 
 * {

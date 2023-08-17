@@ -6,11 +6,7 @@
 
 @use "../elements/buttons";
 
-label {
-  font-size: 1.2rem;
-}
-
-input {
+@mixin formelement-base {
   color: colors.$c-card-text;
   background-color: colors.$c-btn-background;
   border: borders.$b-card;
@@ -29,6 +25,24 @@ input {
   }
 }
 
+label {
+  font-size: 1.3rem;
+}
+
+textarea {
+  @include formelement-base;
+  resize: none;
+  height: 15rem;
+}
+
+select {
+  @include formelement-base;
+}
+
+input {
+  @include formelement-base;
+}
+
 input[type=file] {
   @include buttons.btn-in-container;
 }
@@ -37,6 +51,7 @@ input[type=file]::file-selector-button {
 } 
 
 input[type=submit] {
+  @include buttons.btn-in-container;
   cursor: pointer;
 
   &:hover {

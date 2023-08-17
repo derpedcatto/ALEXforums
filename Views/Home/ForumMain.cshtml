@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ALEXforums.Models.Home.ForumMainViewModel
+@{
     ViewData["Title"] = "ALEXforums";
 }
 
@@ -10,7 +11,21 @@
         <div class="topic-button topic-databases/sql" role="button"><i class="fa-solid fa-database"></i> Бази даних та SQL</div>
     </section>
     <section class="forum-feed">
-        <div class="forum-btn-create-post" role="button"><i class="fa-solid fa-plus"></i> Новий пост</div>
+        <!-- New forum post -->
+        <div class="forum-btn-create-post" id="btn-create-post" role="button"><i class="fa-solid fa-plus"></i> Новий пост</div>
+        @using (Html.BeginForm("ForumMain", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newpost", @class = "forum-newpost-form" }))
+        {
+            <div class="forum-newpost-heading">Новий пост</div>
+            <label for="newpost-category">Категорія</label>
+            <select id="newpost-category" name="newpost-category"></select>
+            <label for="newpost-name">Назва посту</label>
+            <input type="text" id="newpost-name" name="newpost-name">
+            <label for="newpost-bodytext">Тіло посту</label>
+            <textarea id="newpost-bodytext" name="newpost-bodytext"></textarea>
+            <label for="newpost-attachment">Вкладення (.png, .jpeg)</label>
+            <input type="file" class="custom-file-upload" id="newpost-attachment" name="newpost-attachment" accept="image/png, image/jpeg">
+            <input type="submit" value="Новий пост">
+        }
         <!-- Picture -->
         <div class="forum-post">
             <div class="forum-post-container-header">
@@ -84,4 +99,23 @@
             </div>
         </div>
     </section>
+
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            let isAuthenticated = @((bool)Context.User.Identity?.IsAuthenticated ? "true" : "false");
+            let formNewPost = document.getElementById("form-newpost");
+            let btnCreatePost = document.getElementById("btn-create-post");
+
+            formNewPost.style.display = "none";
+
+            btnCreatePost.addEventListener("click", function () {
+                if (isAuthenticated == true) {
+                    formNewPost.style.display = formNewPost.style.display === "none" ? "flex" : "none";
+                    btnCreatePost.style.display = btnCreatePost.style.display === "none" ? "block" : "none";
+                } else {
+                    window.location.href = '@Url.Action("SignIn", "User")';
+                }
+            });
+        });
+    </script>
 </div>
