@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ALEXforums.Models.Home
 {
-    public class ForumMainViewModel
+    public class ForumIndexViewModel
     {
         public List<SelectListItem> PostCategories { get; set; } = null!;
 

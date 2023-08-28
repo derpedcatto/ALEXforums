@@ -1,4 +1,4 @@
-﻿@model ALEXforums.Models.Home.ForumMainViewModel
+﻿@model ALEXforums.Models.Home.ForumIndexViewModel
 @{
     ViewData["Title"] = "ALEXforums";
 }
@@ -13,7 +13,7 @@
     <section class="forum-feed">
         <!-- New forum post -->
         <div class="forum-btn-create-post" id="btn-create-post" role="button"><i class="fa-solid fa-plus"></i> Новий пост</div>
-        @using (Html.BeginForm("ForumMain", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newpost", @class = "forum-newpost-form" }))
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newpost", @class = "forum-newpost-form" }))
         {
             <div class="forum-newpost-heading">Новий пост</div>
             <label for="newpost-category">Категорія</label>
@@ -60,7 +60,7 @@
                     <div class="forum-post-useravatar"><img src="/test_pics/avatar_derpe.png" /></div>
                     <div class="forum-post-username">derpedcatto</div>
                 </div>
-                <a class="forum-post-commentcount" asp-area="" asp-controller="Home" asp-action="ForumPost"><i class="fa-regular fa-comments"></i> 27</a>
+                <a class="forum-post-commentcount" asp-area="" asp-controller="ForumPost" asp-action="Index"><i class="fa-regular fa-comments"></i> 27</a>
             </div>
         </div>
         <!-- Nothing -->

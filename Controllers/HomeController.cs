@@ -24,10 +24,9 @@ namespace ALEXforums.Controllers
             _dataContext = dataContext;
         }
 
-
-        [HttpGet]
-        public IActionResult ForumMain(ForumMainViewModel? model)
+        public IActionResult Index()
         {
+            /*
             if (model == null)
             {
                 model = new();
@@ -38,11 +37,7 @@ namespace ALEXforums.Controllers
                                                 Text = category.Name
                                             }).ToList();
             }
-            return View(model);
-        }
-
-        public IActionResult ForumPost()
-        {
+            */
             return View();
         }
 
