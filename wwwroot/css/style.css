@@ -146,6 +146,8 @@ header {
   text-align: center;
   cursor: pointer;
   transition: 0.15s ease-in-out;
+  color: #e2e2e2;
+  text-decoration: none;
 }
 @media screen and (min-width: 1024px) {
   .topic-button {

@@ -35,4 +35,7 @@
 
 .topic-button {
   @include buttons.btn-in-container;
+  
+  color: colors.$c-card-text;
+  text-decoration: none;
 }
