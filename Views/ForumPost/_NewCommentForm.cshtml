@@ -1,9 +1,46 @@
 ﻿@model string
 @using ALEXforums.Services.UriOperations
 
+<div id="error-div" class="section-login-error">
+    <ul></ul>
+</div>
+
 @using (Html.BeginForm($"{@Model.ToString()}-NewComment", "ForumPost", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newcomment", @class = "forum-post-newcomment" }))
 {
     <label for="newcomment-text">Новий коментар</label>
-    <textarea id="newcomment-text" name="newcomment-text"></textarea>
+    <textarea id="newcomment-text" name="newcomment-text" onsubmit="validateTextarea">@(TempData["Comment"] as string)</textarea>
     <input type="submit" value="Додати коментар">
 }
+
+<script>
+    const errorDiv = document.getElementById("error-div");
+    const form = document.getElementById("form-newcomment");
+    const errorList = document.querySelector("#error-div ul");
+
+    errorDiv.style.display = "none";
+
+    form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        errorList.innerHTML = "";
+
+        const newcommentText = document.getElementById("newcomment-text").value.trim();
+        const errors = [];
+
+        if (!newcommentText) {
+            errors.push("Коментар не може бути порожнім.");
+        }
+
+        if (errors.length > 0) {
+            errorDiv.style.display = "block";
+            errors.forEach((error) => {
+                const errorItem = document.createElement("li");
+                errorItem.textContent = `- ${error}`;
+                errorList.appendChild(errorItem);
+            });
+        } else {
+            errorDiv.style.display = "none";
+            form.submit();
+        }
+    });
+</script>

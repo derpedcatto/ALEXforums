@@ -6,6 +6,7 @@
 }
 
 <div class="element-forumpost body-padding">
+    <a asp-action="@{@Model.PostVM.ForumPost.Id.ToString()}-ReturnToHome" class="forum-post-returnlink"><i class="fa-solid fa-arrow-left"></i> </a>
     @{
         Html.RenderPartial("_Post", Model.PostVM);
         @if (Context.User.Identity?.IsAuthenticated == true)

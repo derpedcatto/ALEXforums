@@ -53,9 +53,21 @@ namespace ALEXforums.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("{postid:guid}-NewComment")]
         public IActionResult NewComment(string postid, [FromForm]NewCommentViewModel? model)
         {
+            string errorMsg = String.Empty;
+            if (String.IsNullOrWhiteSpace(model.CommentText)) 
+            {
+                errorMsg += "Коментар пуст!;";
+            }
+
+            if (errorMsg != String.Empty) 
+            {
+                return RedirectToAction(postid); 
+            }
+
             ForumPostComment newComment = new()
             { 
                 Id = Guid.NewGuid(),

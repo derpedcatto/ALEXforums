@@ -1,12 +1,9 @@
 ﻿@model ALEXforums.Models.Home.HomeViewModel
 @using System.Web
 @using ALEXforums.Services.UriOperations
-@inject IUriOperations UriOperations
 @{
     ViewData["Title"] = "ALEXforums";
 }
-
-@* Selected active category *@
 
 <div class="element-feed body-padding">
     <section class="topic-container">
@@ -15,63 +12,9 @@
         }
     </section>
     <section class="forum-feed">
-        <!-- New forum post -->
-        <div class="forum-btn-create-post" id="btn-create-post" role="button"><i class="fa-solid fa-plus"></i> Новий пост</div>
-
-        @using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newpost", @class = "forum-newpost-form" }))
-        {
-            <div class="forum-newpost-heading">Новий пост</div>
-            <label for="newpost-category">Категорія</label>
-            <select id="newpost-category" name="newpost-category">
-                @foreach (var category in Model.CategoriesVM.Categories)
-                {
-                    <option value="@UriOperations.EncodeUri(category.Name)"
-                            id = "@category.Name">
-                        @category.Name
-                    </option>
-                }
-            </select>
-            <label for="newpost-name">Назва посту</label>
-            <input type="text" id="newpost-name" name="newpost-name">
-            <label for="newpost-bodytext">Тіло посту</label>
-            <textarea id="newpost-bodytext" name="newpost-bodytext"></textarea>
-            <label for="newpost-attachment">Вкладення (.png, .jpeg)</label>
-            <input type="file" class="custom-file-upload" id="newpost-attachment" name="newpost-attachment" accept="image/png, image/jpeg">
-            <input type="submit" value="Новий пост">
-        }
-
         @{
+            Html.RenderPartial("_NewPost", Model.CategoriesVM);
             Html.RenderPartial("_FeedPosts", Model.ForumPostsVM);
         }
     </section>
-
-    <script type="text/javascript">
-        document.getElementById("form-newpost").style.display = "none";
-
-        document.addEventListener("DOMContentLoaded", function () {
-            let isAuthenticated = @((bool)Context.User.Identity?.IsAuthenticated ? "true" : "false");
-            let formNewPost = document.getElementById("form-newpost");
-            let btnCreatePost = document.getElementById("btn-create-post");
-
-            btnCreatePost.addEventListener("click", function () {
-                if (isAuthenticated == true) {
-                    formNewPost.style.display = formNewPost.style.display === "none" ? "flex" : "none";
-                    btnCreatePost.style.display = btnCreatePost.style.display === "none" ? "block" : "none";
-                } else {
-                    window.location.href = '@Url.Action("SignIn", "User")';
-                }
-            });
-
-            let selectedCategoryName = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.CategoriesVM.ChosenCategory.Name))';
-            let categorySelect = document.getElementById("newpost-category");
-
-            for (let i = 0; i < categorySelect.options.length; i++) {
-                let option = categorySelect.options[i];
-                if (option.text === selectedCategoryName) {
-                    option.selected = true;
-                    break;
-                }
-            }
-        });
-    </script>
 </div>

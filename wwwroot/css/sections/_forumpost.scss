@@ -39,6 +39,13 @@
   font-size: 1rem;
 }
 
+.forum-post-returnlink {
+  @include cards.card-normal;
+  font-size: 1.5rem;
+  width: max-content;
+  color: colors.$c-card-text;
+}
+
 
 .comment-header {
   display: flex;

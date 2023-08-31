@@ -1,0 +1,105 @@
+﻿@model ALEXforums.Models.Home.CategoriesViewModel
+@using System.Web
+@using ALEXforums.Services.UriOperations;
+@inject IUriOperations UriOperations
+
+<!-- New forum post -->
+<div class="forum-btn-create-post" id="btn-create-post" role="button"><i class="fa-solid fa-plus"></i> Новий пост</div>
+
+<div id="error-div" class="section-login-error">
+    <ul></ul>
+</div>
+
+@using (Html.BeginForm("NewPost", "Home", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newpost", @class = "forum-newpost-form" }))
+{
+    <div class="forum-newpost-heading">Новий пост</div>
+    <label for="newpost-category">Категорія</label>
+    <select id="newpost-category" name="newpost-category">
+        @foreach (var category in Model.Categories)
+        {
+            <option value="@UriOperations.EncodeUri(category.Name)"
+                    id="@category.Name">
+                @category.Name
+            </option>
+        }
+    </select>
+    <label for="newpost-name">Назва посту</label>
+    <input type="text" id="newpost-name" name="newpost-name">
+    <label for="newpost-bodytext">Тіло посту</label>
+    <textarea id="newpost-bodytext" name="newpost-bodytext"></textarea>
+    <label for="newpost-attachment">Вкладення (.png, .jpeg)</label>
+    <input type="file" class="custom-file-upload" id="newpost-attachment" name="newpost-attachment" accept="image/png, image/jpeg">
+    <input type="submit" value="Новий пост">
+}
+
+<script type="text/javascript">
+    const formNewPost = document.getElementById("form-newpost");
+    const errorDiv = document.getElementById("error-div");
+    const btnCreatePost = document.getElementById("btn-create-post");
+    const categorySelect = document.getElementById("newpost-category");
+    const nameInput = document.getElementById("newpost-name");
+    const bodyTextInput = document.getElementById("newpost-bodytext");
+    const attachmentInput = document.getElementById("newpost-attachment");
+    const errorList = errorDiv.querySelector("ul");
+
+    formNewPost.style.display = "none";
+    errorDiv.style.display = "none";
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const isAuthenticated = @((bool)Context.User.Identity?.IsAuthenticated ? "true" : "false");
+
+        btnCreatePost.addEventListener("click", function () {
+            if (isAuthenticated) {
+                toggleElementDisplay(formNewPost);
+                toggleElementDisplay(btnCreatePost);
+            } else {
+                window.location.href = '@Url.Action("SignIn", "User")';
+            }
+        });
+
+        const selectedCategoryName = '@Html.Raw(HttpUtility.JavaScriptStringEncode(Model.ChosenCategory.Name))';
+
+        for (let i = 0; i < categorySelect.options.length; i++) {
+            const option = categorySelect.options[i];
+            if (option.text === selectedCategoryName) {
+                option.selected = true;
+                break;
+            }
+        }
+    });
+
+    formNewPost.addEventListener("submit", (event) => {
+        event.preventDefault();
+        errorList.innerHTML = "";
+
+        if (nameInput.value === "") {
+            addError("Пост не може бути без назви.");
+        }
+
+        if (attachmentInput.value !== "" && !isValidFileType(attachmentInput)) {
+            addError("Тільки .png та .jpeg файли підтримані.");
+        }
+
+        if (errorList.children.length === 0) {
+            errorDiv.style.display = "none";
+            formNewPost.submit();
+        } else {
+            errorDiv.style.display = "block";
+        }
+    });
+
+    function toggleElementDisplay(element) {
+        element.style.display = element.style.display === "none" ? "flex" : "none";
+    }
+
+    function addError(message) {
+        const li = document.createElement("li");
+        li.textContent = "- " + message;
+        errorList.appendChild(li);
+    }
+
+    function isValidFileType(input) {
+        const fileType = input.files[0].type;
+        return fileType === "image/png" || fileType === "image/jpeg";
+    }
+</script>
