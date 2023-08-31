@@ -23,8 +23,8 @@
                 <div class="forum-post-useravatar"><img src="/uploads/@forumPost.User.Avatar" /></div>
                 <div class="forum-post-username">@forumPost.User.Username</div>
             </div>
-            <a class="forum-post-commentcount" asp-area="" asp-controller="ForumPost" asp-action="Index"><i class="fa-regular fa-comments"></i>
-                @forumPost.Comments.Count
+            <a class="forum-post-commentcount" href="@Url.Action("Index", "ForumPost", new { postId = forumPost.Id.ToString() })">
+                <i class="fa-regular fa-comments"></i>@forumPost.Comments.Count
             </a>
         </div>
     </div>

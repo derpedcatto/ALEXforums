@@ -1,0 +1,26 @@
+@use "../global/vars/colors";
+@use "../global/vars/breakpoints";
+@use "../global/vars/padding";
+@use "../global/vars/shadows";
+@use "../global/vars/borders";
+
+@use "../global/elements/buttons";
+@use "../global/elements/cards";
+@use "../global/elements/form";
+
+.forum-post-newcomment {
+    @include cards.card-normal;
+    display: flex;
+    flex-direction: column;
+    font-size: 1.1rem;
+    gap: 1rem;
+    margin: 1rem 0px 3rem 0px;
+
+    label {
+        font-size: 1.7rem;
+    }
+
+    textarea {
+        height: 6rem;
+    }
+}

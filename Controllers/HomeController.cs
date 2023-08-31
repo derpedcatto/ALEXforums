@@ -7,34 +7,39 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
 using System.Web;
-using ALEXforums.Utility.UriOperations;
 using System.Security.Claims;
+using ALEXforums.Services.UriOperations;
+using ALEXforums.Services.Hash;
 
 namespace ALEXforums.Controllers
 {
     [Route("[controller]")]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly DataContext _dataContext;
+		private readonly DataContext _dataContext;
+		private readonly IHashService _hashService;
+		private readonly IUriOperations _uriOperations;
 
-        public HomeController(ILogger<HomeController> logger, DataContext dataContext)
-        {
-            _logger = logger;
-            _dataContext = dataContext;
-        }
+		public HomeController(DataContext dataContext, IHashService hashService, IUriOperations uriOperations)
+		{
+			_dataContext = dataContext;
+			_hashService = hashService;
+			_uriOperations = uriOperations;
+		}
 
-        [Route("/")]
+
+		[Route("/")]
 		public IActionResult Index()
         {
-			return RedirectToAction(UriOperationsCyrillic.EncodeUri(_dataContext.ForumCategories.FirstOrDefault()!.Name));
+			return RedirectToAction(_uriOperations.EncodeUri(_dataContext.ForumCategories.FirstOrDefault()!.Name));
         }
+
 
 		[Route("{category}")]
 		public IActionResult Category(string category)
 		{
 			HomeViewModel viewModel = new();
-            string decodedCategory = HttpUtility.UrlDecode(category);
+            string decodedCategory = _uriOperations.DecodeUri(category);
 
 			CategoriesViewModel categoriesVM = new();
 			categoriesVM.Categories = _dataContext.ForumCategories.ToList();
@@ -42,6 +47,8 @@ namespace ALEXforums.Controllers
 
             ForumPostsViewModel postsVM = new();
             postsVM.ForumPosts = _dataContext.ForumPosts.Include(fp => fp.User)
+                                                        .Include(fp => fp.Category)
+                                                        .Include(fp => fp.Comments)
                                                         .Where(c => c.CategoryId == categoriesVM.ChosenCategory.Id)
                                                         .OrderByDescending(p => p.PublishDate)
                                                         .ToList();
@@ -52,11 +59,12 @@ namespace ALEXforums.Controllers
 			return View("Index", viewModel);
 		}
 
+
         [HttpPost]
         [Route("/NewPost")]
         public IActionResult NewPost([FromForm]NewForumPostModel? model)
         {
-            string decodedCategory = HttpUtility.UrlDecode(model!.Category);
+            string decodedCategory = _uriOperations.DecodeUri(model!.Category);
 
             ForumPost newPost = new()
             {
@@ -87,17 +95,8 @@ namespace ALEXforums.Controllers
             return RedirectToAction(model.Category);
         }
 
-		/*
-		public PartialViewResult Categories()
-        {
-            return PartialView("Categories");
-        }
-		
-		public PartialViewResult FeedPosts()
-        {
-            return PartialView("FeedPosts");
-        }
-        */
+
+
 
 		[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         [Route("")]

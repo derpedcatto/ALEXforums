@@ -1,6 +1,7 @@
 using ALEXforums.Data;
 using ALEXforums.Middleware;
 using ALEXforums.Services.Hash;
+using ALEXforums.Services.UriOperations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
@@ -12,6 +13,7 @@ builder.Services.AddControllersWithViews();
 
 
 builder.Services.AddSingleton<IHashService, SHA256HashService>();
+builder.Services.AddSingleton<IUriOperations, UriOperationsCyrillic>();
 
 // Add Data Context
 builder.Services.AddDbContext<DataContext>(options =>
@@ -63,14 +65,14 @@ app.UseSessionAuth();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{category?}");
 
 /*
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home/{action=Index}/{category?}");
+        pattern: "{controller=Home/{action=Index}/{category}");
 });
 */
 

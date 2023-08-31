@@ -35,6 +35,10 @@
   flex-direction: column;
 }
 
+.forum-post-publishdate {
+  font-size: 1rem;
+}
+
 
 .comment-header {
   display: flex;
@@ -93,11 +97,7 @@
 
 .comment-date {
   color: colors.$c-card-text-dark;
-  font-size: 1.1rem;
-
-  @media screen and (max-width: breakpoints.$br-m) {
-    font-size: 1rem;
-  }
+  font-size: 1rem;
 }
 
 .comment-text {

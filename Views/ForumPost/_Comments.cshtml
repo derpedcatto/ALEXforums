@@ -1,0 +1,15 @@
+﻿@model ALEXforums.Models.ForumPost.PostCommentsViewModel
+
+@foreach (var comment in Model.Comments)
+{
+    <div class="forum-post-comment">
+        <div class="comment-header">
+            <div class="comment-user">
+                <div class="comment-useravatar"><img src="/uploads/@comment.User.Avatar" /></div>
+                <div class="comment-username">@comment.User.Username</div>
+            </div>
+            <div class="comment-date">@comment.PublishDate.ToString("HH:mm - dd.MM.yyyy")</div>
+        </div>
+        <div class="comment-text">@comment.Text</div>
+    </div>
+}

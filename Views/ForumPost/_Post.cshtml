@@ -1,0 +1,35 @@
+﻿@model ALEXforums.Models.ForumPost.PostViewModel
+@using System.Web
+@using ALEXforums.Services.UriOperations
+
+@{
+    var forumPost = Model.ForumPost;
+}
+
+<div class="forum-post">
+    <div class="forum-post-container-header">
+        <div class="forum-post-category"><i class="fa-regular fa-newspaper"></i> @forumPost.Category.Name</div>
+        <div class="forum-post-publishdate">@forumPost.PublishDate.ToString("dd.MM.yyyy")</div>
+    </div>
+    <div class="forum-post-container-body">
+        <a class="forum-post-name" href="#">@forumPost.Title</a>
+        @if (!(String.IsNullOrEmpty(forumPost.BodyText)))
+        {
+            <div class="forum-post-text">@forumPost.BodyText</div>
+        }
+        @if (!(String.IsNullOrEmpty(forumPost.PictureAttachment)))
+        {
+            <div class="forum-post-picture"><img src="/uploads/@forumPost.PictureAttachment" /></div>
+        }
+    </div>
+    <div class="forum-post-container-footer">
+        <div class="forum-post-user">
+            <div class="forum-post-useravatar"><img src="/uploads/@forumPost.User.Avatar" /></div>
+            <div class="forum-post-username">@forumPost.User.Username</div>
+        </div>
+        <div class="forum-post-commentcount">
+            <i class="fa-regular fa-comments"></i>
+            @forumPost.Comments.Count
+        </div>
+    </div>
+</div>

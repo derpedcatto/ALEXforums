@@ -4,6 +4,6 @@ namespace ALEXforums.Models.Home
 {
 	public class ForumPostsViewModel
 	{
-		public List<ForumPost> ForumPosts { get; set; } = null!;
+		public List<Data.Entity.ForumPost> ForumPosts { get; set; } = null!;
 	}
 }

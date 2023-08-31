@@ -2,6 +2,7 @@
 using ALEXforums.Data.Entity;
 using ALEXforums.Models.User;
 using ALEXforums.Services.Hash;
+using ALEXforums.Services.UriOperations;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
@@ -11,14 +12,16 @@ namespace ALEXforums.Controllers
     {
         private readonly DataContext _dataContext;
         private readonly IHashService _hashService;
+        private readonly IUriOperations _uriOperations;
 
-        public UserController(DataContext dataContext, IHashService hashService)
-        {
-            _dataContext = dataContext;
-            _hashService = hashService;
-        }
+		public UserController(DataContext dataContext, IHashService hashService, IUriOperations uriOperations)
+		{
+			_dataContext = dataContext;
+			_hashService = hashService;
+			_uriOperations = uriOperations;
+		}
 
-        public IActionResult SignUp(UserSignUpModel? model)
+		public IActionResult SignUp(UserSignUpModel? model)
         {
             if (HttpContext.Request.Method == "POST")
             {
@@ -43,7 +46,7 @@ namespace ALEXforums.Controllers
             HttpContext.Session.Remove("AuthUserId");
             HttpContext.User = new System.Security.Claims.ClaimsPrincipal();
 
-            return RedirectToAction("Main", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         private string ValidateSignInModel(UserSignInModel? model)

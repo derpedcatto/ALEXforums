@@ -1,4 +1,4 @@
-﻿namespace ALEXforums.Utility.UriOperations
+﻿namespace ALEXforums.Services.UriOperations
 {
     public interface IUriOperations
     {

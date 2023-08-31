@@ -1,0 +1,9 @@
+﻿@model string
+@using ALEXforums.Services.UriOperations
+
+@using (Html.BeginForm($"{@Model.ToString()}-NewComment", "ForumPost", FormMethod.Post, new { enctype = "multipart/form-data", id = "form-newcomment", @class = "forum-post-newcomment" }))
+{
+    <label for="newcomment-text">Новий коментар</label>
+    <textarea id="newcomment-text" name="newcomment-text"></textarea>
+    <input type="submit" value="Додати коментар">
+}

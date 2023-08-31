@@ -1,6 +1,7 @@
 ﻿@model ALEXforums.Models.Home.HomeViewModel
 @using System.Web
-@using ALEXforums.Utility.UriOperations
+@using ALEXforums.Services.UriOperations
+@inject IUriOperations UriOperations
 @{
     ViewData["Title"] = "ALEXforums";
 }
@@ -24,7 +25,7 @@
             <select id="newpost-category" name="newpost-category">
                 @foreach (var category in Model.CategoriesVM.Categories)
                 {
-                    <option value="@UriOperationsCyrillic.EncodeUri(category.Name)"
+                    <option value="@UriOperations.EncodeUri(category.Name)"
                             id = "@category.Name">
                         @category.Name
                     </option>
