@@ -70,12 +70,6 @@ namespace ALEXforums.Controllers
             return RedirectToAction(postid);
         }
 
-
-
-        /*
-         * Shit Broke
-         */
-
         [Route("{postid:guid}-ReturnToHome")]
         public IActionResult ReturnToHome(string postid)
         {
