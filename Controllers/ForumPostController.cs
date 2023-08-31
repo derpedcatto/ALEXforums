@@ -26,6 +26,7 @@ namespace ALEXforums.Controllers
 			_uriOperations = uriOperations;
 		}
 
+        [HttpGet]
 		[Route("{postid:guid}")]
         public IActionResult Index(string postId)
         {

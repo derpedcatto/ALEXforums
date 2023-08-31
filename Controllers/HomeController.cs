@@ -28,15 +28,17 @@ namespace ALEXforums.Controllers
 		}
 
 
-		[Route("/")]
-		public IActionResult Index()
+        [HttpGet]
+        [Route("/")]
+        public IActionResult Index()
         {
 			return RedirectToAction(_uriOperations.EncodeUri(_dataContext.ForumCategories.FirstOrDefault()!.Name));
         }
 
 
-		[Route("{category}")]
-		public IActionResult Category(string category)
+        [HttpGet]
+        [Route("{category}")]
+        public IActionResult Category(string category)
 		{
 			HomeViewModel viewModel = new();
             string decodedCategory = _uriOperations.DecodeUri(category);
@@ -61,6 +63,7 @@ namespace ALEXforums.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         [Route("/NewPost")]
         public IActionResult NewPost([FromForm]NewForumPostModel? model)
         {
