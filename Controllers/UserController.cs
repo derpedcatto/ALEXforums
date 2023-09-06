@@ -59,6 +59,11 @@ namespace ALEXforums.Controllers
 
             if (user != null)
             {
+                if (String.IsNullOrEmpty(model.Password))
+                {
+                    return errorMsg += "Поле паролю пусте.;";
+                }
+
                 if (user.PasswordHash == _hashService.HashString(model.Password))
                 {
                     HttpContext.Session.SetString("AuthUserId", user.Id.ToString());
