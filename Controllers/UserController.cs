@@ -89,17 +89,20 @@ namespace ALEXforums.Controllers
             {
                 errorMsg += "Ім'я користувача порожнє.;";
             }
-            if (! (model.Username.Length >= 3 && model.Username.Length <= 12))
-            { 
-                errorMsg += "Ім'я користувача має містити 3-12 символів.;"; 
-            }
-            if (! Regex.IsMatch(model.Username, "^[A-Za-zА-Яа-я][A-Za-z0-9_А-Яа-я]*$")) 
+            else
             {
-                errorMsg += "Ім'я користувача повинно починатися з літери та не містити невалідних символів.;";
-            }
-            if (_dataContext.Users.Any(row => row.Username == model.Username))
-            {
-                errorMsg += "Користувач з цим логіном вже зареєстрований.;";
+                if (!(model.Username.Length >= 3 && model.Username.Length <= 12))
+                {
+                    errorMsg += "Ім'я користувача має містити 3-12 символів.;";
+                }
+                if (!Regex.IsMatch(model.Username, "^[A-Za-zА-Яа-я][A-Za-z0-9_А-Яа-я]*$"))
+                {
+                    errorMsg += "Ім'я користувача повинно починатися з літери та не містити невалідних символів.;";
+                }
+                if (_dataContext.Users.Any(row => row.Username == model.Username))
+                {
+                    errorMsg += "Користувач з цим логіном вже зареєстрований.;";
+                }
             }
 
             // Password
@@ -125,9 +128,11 @@ namespace ALEXforums.Controllers
                 {
                     errorMsg += "Аватар повинен бути у форматі .png або .jpg.;";
                 }
-
-                newName = Guid.NewGuid().ToString() + ext;
-                model.AvatarFile.CopyTo(new FileStream($"wwwroot/uploads/{newName}", FileMode.Create));
+                else
+                {
+                    newName = Guid.NewGuid().ToString() + ext;
+                    model.AvatarFile.CopyTo(new FileStream($"wwwroot/uploads/{newName}", FileMode.Create));
+                }
             }
             else
             {
